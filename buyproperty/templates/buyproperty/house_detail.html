@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% block title %} Bolg | {{ house.title }} {% endblock %}
+{% block content %}
+<!-- house content -->
+<div>
+  <div>
+    <h2>{{ house.title }}</h2>
+    <p>{{ house.added_by }} | {{ house.created_on }}</p>
+    {% if house.images %}
+    {% for image in house.images %}
+    
+    <img src="{{image.image.url}}" alt="{{house.title}}" />
+    {% endfor %}
+    {% endif %}
+    <p>{{ house.description }}</p>
+    <p>{{ house.location }}</p>
+  </div>
+</div>
+
+<!-- comment form -->
+<div class="col-md-9 card mx-auto my-3">
+  <div class="card-body">
+    <h3>Leave a comment</h3>
+    <form method="post" style="margin-top: 1.3em">
+      {{ comment_form }} {% csrf_token %}
+      <button type="submit">
+        Comment
+      </button>
+    </form>
+  </div>
+</div>
+
+<!-- comments -->
+<div class="col-md-9 card mx-auto mt-3">
+  <div class="card-body">
+    <h4>{{ comments.count }} comments</h4>
+    {% for cmnt in comments %}
+    <div class="comments border mt-3" style="padding: 10px">
+      <p class="text_muted">{{ cmnt.message }} | <small>{{ cmnt.commented_by.username }}</small></p>
+      </p>
+      <p>
+          {{ cmnt.replies.count }} replies
+      </p>
+      </p>
+
+      <div class="collapse" id="reply{{cmnt.id}}">
+        <div class="card card-body">
+          <form method="post" style="margin-top: 1.3em">
+            {{ comment_form }} {% csrf_token %}
+            <input type="hidden" name="reply" value="{{cmnt.id}}" />
+            <button type="submit">Reply</button>
+          </form>
+        </div>
+      </div>
+      <div id="replies{{cmnt.id}}">
+        <div class="card card-body">
+          {% for rply in replies %}
+          {% if rply.reply_of.id == cmnt.id %}
+          <div>
+            <p>{{ rply.message }} | <small>{{ rply.commented_by.username }} </small></p>
+          </div>
+          {% endif%}
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+{% endblock content %}

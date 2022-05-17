@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block title %}Add Your House - Niji Property{% endblock  %}
+{% block content %}
+
+    <h2>Enter info to add you House in the list</h2>
+
+    <form action="{% url 'add_house' %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+         <p><label>Title* </label><input type="text" name="title" required></p>
+          <p><label>Descrption* </label><textarea name="descrption" rows="4" cols="50" required></textarea></p>
+          <p><label>Location* </label><input type="text" name="location" required></p>
+          <p><label>Land Area </label><input type="number" step="any" name="land_area" ></p>
+          <p><label>Floor Area </label><input type="number" step="any" name="floor_area" ></p>
+
+          <p><label>Bedroom </label><input type="number" name="bedroom" ></p>
+          <p><label>Bathroom </label><input type="number" name="bathroom" ></p>
+          <p><label>Livingroom </label><input type="number" name="livingroom" ></p>
+          <p><label>Kitchen </label><input type="number" name="kitchen" ></p>
+
+          <p><label>Room Details </label><textarea name="room_details" rows="4" cols="50" ></textarea></p>
+          <p><label>Furnished Condition </label><input type="text" name="furnished_condition"></p>
+          <p><label>Built Year </label><input type="date" name="built_year"></p>
+          <p><label>Parking Sapce </label><input type="text" name="parking_sapce" ></p>
+          <p><label>Garden </label><input type="text" name="garden"></p>
+
+          <p><label>House Facing </label><input type="text" name="house_facing"></p>
+          <p><label>Road Size </label><input type="number" step="any" name="road_size"></p>
+          <p><label>Road Condition </label><input type="text" name="road_condition"></p>
+          <p><label>Water Facilities </label><input type="text" name="water_facilities"></p>
+          <p><label>Sewage Facilties </label><input type="text" name="sewage_facilties" ></p>
+          <label for="house-for">Choose a buyer:</label>
+            <select name="house-for" id="house-for">
+                <option selected="selected" disabled>------</option>
+                    <option value="1">Sale</option>
+                    <option value="2">Buy</option>
+                    <option value="3">To Rent</option>
+                    <option value="4">For Rent</option>
+            </select>
+
+          <p><label>Images </label><input type="file" name="images" multiple required></p>
+        <input type="submit" value="Add your House">
+    </form>
+{% endblock  %}

@@ -1,0 +1,12 @@
+services:
+  app:
+    build: .
+    volumes:
+      - .:/niji
+    ports:
+      - 9000:9000
+    image: app:niji
+    container_name: nijip
+    command: python manage.py runserver 0.0.0.0:9000
+    
+  

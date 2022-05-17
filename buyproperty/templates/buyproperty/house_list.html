@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2>List us of House</h2>
+    {% for house in houses %}
+       <a href="{% url 'house_detail' house.id %}">{{house}}</a> 
+    {% endfor %}
+{% endblock  %}
